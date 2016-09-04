@@ -26,20 +26,27 @@
                     $numProduct = 10;
                     $prd = new product($numProduct);
                     if (empty($_GET))
-                        $data = $prd->getProduct(NULL,1);
+                        $datas = $prd->getProduct(NULL,1);
                     else{
                         if (empty($_GET['type'])) $t = NULL;
                         else $t = $_GET['type'];
                         if (empty($_GET['page'])) $p = 1;
                         else $p = $_GET['page'];
-                        $data = $prd->getProduct($t, $p);
+                        $datas = $prd->getProduct($t, $p);
                     }
-                    foreach ($data['data'] as $d){
+                    $data = $datas['data'];
+                    if (count($data) < 1) echo "Chưa có ảnh mục này.";
+                    else
+                    foreach ($data as $d){
                 ?>
                 <div class="col-md-3 thumbnail" id="thumb" style="height:200px;">
-                    <img src="<?php echo $d[2] ?>" >
+                    <a href="#image-viewer-<?php echo $d[0] ?>"><img src="<?php echo $d[2] ?>" ></a>
                     <p align="center"><?php echo $d[1] ?></p>
                 </div>
+                <a href="javascript:history.go(-1)" class="JesterBox" name="image-viewer">
+                    <div id="image-viewer-<?php echo $d[0] ?>"> <img src="<?php echo $d[2] ?>"></div>
+                </a>
+
             <?php } ?>
             </div>
 
@@ -52,7 +59,7 @@
                 else $p = $_GET['page'];
                 ?>
 
-                <?php if ($data['before']&&$data['after']) {
+                <?php if ($datas['before']&&$datas['after']) {
                 ?>
                 <a href="<?php echo URL.'/products.php?'.$t.'page='.($p - 1) ?>">
                     <button class="btn-block btn-primary" style="margin-left: 30%;"
@@ -62,12 +69,12 @@
                     <button class="btn-block btn-primary">TRANG SAU</button>
                 </a>
                 <?php }
-                else if ($data['before']) { ?>
+                else if ($datas['before']) { ?>
                 <a href="<?php echo URL.'/products.php?'.$t.'page='.($p - 1) ?>">
                 <button class="btn-block btn-primary" style="margin-left: 40%">TRANG TRƯỚC</button>
                 </a>
                 <?php }
-                else if ($data['after']){ ?>
+                else if ($datas['after']){ ?>
                 <a href="<?php echo URL.'/products.php?'.$t.'page='.($p + 1) ?>">
                     <button class="btn-block btn-primary" style="margin-left: 40%">TRANG SAU</button>
                 </a>
