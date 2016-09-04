@@ -33,15 +33,9 @@
             <ul class="nav navbar-nav" id="navbarontop">
                 <li class="active"><a href="<?php echo URL ?>/index.php">TRANG CHỦ</a> </li>
                 <li class="active"><a href="#">GIỚI THIỆU</a> </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle"	data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">SẢN PHẨM<span class="caret"></span></a>
-                    <ul class="dropdown-menu dropdowncostume">
-                        <li><a href="<?php echo URL ?>/products.php">Ấn phẩm</a></li>
-                        <li><a href="#">Videos</a></li>
-                        <li><a href="#">Nhiếp ảnh</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
+                <li class="active"><a href="<?php echo URL ?>/products.php">SẢN PHẨM</a> </li>
+                <li class="active"><a href="#">DỊCH VỤ</a> </li>
+                <!--<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">DỊCH VỤ <span class="caret"></span></a>
                         <ul class="dropdown-menu dropdowncostume">
                             <li><a href="#">Thiết kế - Dựng clip</a></li>
@@ -49,13 +43,9 @@
                             <li><a href="3">Livestream</a></li>
                             <li><a href="#">Truyền thông</a></li>
                         </ul>
-                </li>
-                <li>
-                    <a href="contact.html">HÌNH ẢNH HOẠT ĐỘNG</a>
-                </li>
-                <li>
-                    <a href="<?php echo URL?>/contact.php">LIÊN LẠC</a>
-                </li>
+                </li>-->
+                <li> <a href="contact.html">HÌNH ẢNH HOẠT ĐỘNG</a> </li>
+                <li> <a href="<?php echo URL?>/contact.php">LIÊN LẠC</a> </li>
             </ul>
         </div>
     </nav>

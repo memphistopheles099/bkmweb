@@ -12,19 +12,67 @@
                 <h1>Sản phẩm </h1>
             </div>
 
+            <!-- Hash tag -->
             <div class="col-md-12">
-                <a href="index.php"><span class="tag">Hello Goodbye</span></a>
+                <a href="<?php echo URL?>/products.php?type=printted&page=1"><span class="tag">Ấn phẩm</span></a>
+                <a href="<?php echo URL?>/products.php?type=video&page=1"><span class="tag">Video</span></a>
+                <a href="<?php echo URL?>/products.php?type=photo&page=1"><span class="tag">Nhiếp ảnh</span></a>
             </div>
-            <?php
-                $prd = new product();
-                $data = $prd->getProduct();
-                foreach ($data as $d){
-            ?>
-            <div class="col-md-3 thumbnail" id="thumb" style="height:200px;">
-                <img src="<?php echo $d[2] ?>" >
-                <p align="center"><?php echo $d[1] ?></p>
-            </div>
+
+            <!-- GET AND SHOW IMAGE PATH -->
+            <div class="col-md-12" style="margin-top: 10px;">
+                <?php
+                    // NUMBER OF PRODUCTS PER PAGE
+                    $numProduct = 10;
+                    $prd = new product($numProduct);
+                    if (empty($_GET))
+                        $data = $prd->getProduct(NULL,1);
+                    else{
+                        if (empty($_GET['type'])) $t = NULL;
+                        else $t = $_GET['type'];
+                        if (empty($_GET['page'])) $p = 1;
+                        else $p = $_GET['page'];
+                        $data = $prd->getProduct($t, $p);
+                    }
+                    foreach ($data['data'] as $d){
+                ?>
+                <div class="col-md-3 thumbnail" id="thumb" style="height:200px;">
+                    <img src="<?php echo $d[2] ?>" >
+                    <p align="center"><?php echo $d[1] ?></p>
+                </div>
             <?php } ?>
+            </div>
+
+            <!-- NEXT + PREVIOUS BUTTON -->
+            <div class="col-md-12" >
+                <?php
+                if(empty($_GET)||empty($_GET['type'])) $t = '';
+                else $t = 'type='.$_GET['type'].'&';
+                if(empty($_GET)||empty($_GET['page'])) $p = 1;
+                else $p = $_GET['page'];
+                ?>
+
+                <?php if ($data['before']&&$data['after']) {
+                ?>
+                <a href="<?php echo URL.'/products.php?'.$t.'page='.($p - 1) ?>">
+                    <button class="btn-block btn-primary" style="margin-left: 30%;"
+                            formaction="<?php echo URL.'/products.php?'.$t.'page='.($p - 1) ?>">TRANG TRƯỚC</button>
+                </a>
+                <a href="<?php echo URL.'/products.php?'.$t.'page='.($p + 1) ?>">
+                    <button class="btn-block btn-primary">TRANG SAU</button>
+                </a>
+                <?php }
+                else if ($data['before']) { ?>
+                <a href="<?php echo URL.'/products.php?'.$t.'page='.($p - 1) ?>">
+                <button class="btn-block btn-primary" style="margin-left: 40%">TRANG TRƯỚC</button>
+                </a>
+                <?php }
+                else if ($data['after']){ ?>
+                <a href="<?php echo URL.'/products.php?'.$t.'page='.($p + 1) ?>">
+                    <button class="btn-block btn-primary" style="margin-left: 40%">TRANG SAU</button>
+                </a>
+                <?php } ?>
+            </div>
         </div>
         <div class="col-md-2"></div>
         </div>
